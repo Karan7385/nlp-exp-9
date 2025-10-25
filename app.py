@@ -6,6 +6,9 @@ import google.generativeai as genai
 from PIL import Image
 import tempfile
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # -----------------------------
 # Step 1: App Configuration
@@ -21,7 +24,7 @@ st.markdown("Upload an image, detect objects using YOLO, and ask the robot quest
 @st.cache_resource
 def load_models():
     yolo = YOLO("yolov8n.pt")
-    genai.configure(api_key="AIzaSyBDuel0CPx4qWnRMCGwpw0PPtSnIZTgeYo")
+    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
     gemini = genai.GenerativeModel("gemini-2.5-flash")
     return yolo, gemini
 
